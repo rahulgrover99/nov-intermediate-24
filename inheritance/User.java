@@ -8,7 +8,7 @@ public class User {
     public User(int id, String name) {
         this.id = id;
     }
-    void login() {
+    void login() throws RuntimeException {
         System.out.println("User with ID: " + id + " is logged in.");
     }
 
