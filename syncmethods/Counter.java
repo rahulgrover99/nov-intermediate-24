@@ -1,17 +1,25 @@
 package com.example.splitwise.demo.syncmethods;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicIntegerArray;
+
 public class Counter {
-    private int i = 0;
-    synchronized void increment() {
-        i += 1;
+    private AtomicInteger i = new AtomicInteger(0);
+    void increment() {
+        i.incrementAndGet();
     }
 
-    synchronized void decrement() {
-        i -= 1;
+    void decrement() {
+        i.decrementAndGet();
     }
 
     int getValue() {
-        return i;
+        return i.get();
     }
 
 
