@@ -17,10 +17,10 @@ public class Adder implements Runnable{
 //        lock.lock();
         for (int i = 0; i < 100000; i++) {
 //            System.out.println("Hello adder");
-            lock.lock();
+//            lock.lock();
 //            System.out.println("Adding value in adder thread");
             counter.i += 1;
-            lock.unlock();
+//            lock.unlock();
         }
 //        lock.unlock();
     }

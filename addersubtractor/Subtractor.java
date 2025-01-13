@@ -17,10 +17,10 @@ public class Subtractor implements Runnable{
         for (int i = 0; i < 100000; i++) {
             // Thread -> tries to get a lock, if it doesn't, put it in the waiting queue.
 //            System.out.println("Hello subtractor");
-            lock.lock();
+//            lock.lock();
 //            System.out.println("Subtracting value in subtractor thread.");
             counter.i -= 1;
-            lock.unlock();
+//            lock.unlock();
         }
     }
 }
