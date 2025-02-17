@@ -13,5 +13,5 @@ public abstract class Player {
         this.symbol = symbol;
         this.id = id;
     }
-    public abstract void makeMove();
+    public abstract Cell makeMove();
 }

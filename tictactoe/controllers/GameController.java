@@ -33,18 +33,32 @@ public class GameController {
         return new Game(n, playerList);
     }
 
+    /**
+     * Helps the user make the next move
+     *
+     * 1. Finds the player with next move
+     * 2. Calls the makeMove method for the corresponding player
+     * 3. Updates the board with that move and corresponding validation
+     * 4. Check all the winning strategies
+     * 5. Displays the board.
+     *
+     */
     public void makeNextMove() {
+        if (game.getBoard().isFull()) {
+            game.setDraw();
+            return;
+        }
+
+        // Step 1
         int currPlayerIndex = game.getCurrPlayerIndex();
         Player currPlayer = game.playerList.get(currPlayerIndex);
 
-        System.out.printf("It's %s's move", currPlayer.getName());
-        currPlayer.makeMove();
+        // Step 2
+        System.out.printf("It's %s's move\n", currPlayer.getName());
+        game.makeMoveForCurrPlayer();
 
-        // increment game index
-        // check if somebody won
-
-
+        // Step4 - check for winning strategies
+        game.postMoveWinnerCheck();
     }
-
 
 }

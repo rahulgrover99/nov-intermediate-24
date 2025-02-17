@@ -17,11 +17,15 @@ public class Main {
             // Prints the next player's move.
             // Ask the user for an input
             gc.makeNextMove();
-
-
         }
 
         game.getBoard().displayBoard();
+
+        if (game.getGameState().equals(GameState.WINNING)) {
+            System.out.printf("The winner of the game is %s\n", game.getWinner().getName());
+        } else {
+            System.out.println("The game has ended in a draw");
+        }
 
 
 
