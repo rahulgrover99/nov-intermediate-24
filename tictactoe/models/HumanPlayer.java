@@ -8,7 +8,7 @@ public class HumanPlayer extends Player{
     }
 
     @Override
-    public Cell makeMove() {
+    public Cell makeMove(Board board, Player player) {
         Scanner sc = new Scanner(System.in);
         System.out.println("What's your next move?");
         int row = sc.nextInt();

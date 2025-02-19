@@ -48,7 +48,7 @@ public class Game {
      */
     public void makeMoveForCurrPlayer() {
         Player currPlayer = this.playerList.get(currPlayerIndex);
-        Cell cell = currPlayer.makeMove();
+        Cell cell = currPlayer.makeMove(board, currPlayer);
         try {
             this.getBoard().updateBoard(cell, currPlayer);
             this.moves.add(cell);
