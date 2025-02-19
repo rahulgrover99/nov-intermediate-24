@@ -9,9 +9,11 @@ import java.util.Scanner;
 public class GameController {
 
     Game game;
+    public BoardController boardController;
 
     public GameController(Game game) {
         this.game = game;
+        this.boardController = new BoardController(game.board);
     }
 
     public static Game initialiseGame() {
@@ -61,7 +63,7 @@ public class GameController {
      *
      */
     public void makeNextMove() {
-        if (game.getBoard().isFull()) {
+        if (boardController.isFull()) {
             game.setDraw();
             return;
         }
@@ -72,10 +74,49 @@ public class GameController {
 
         // Step 2
         System.out.printf("It's %s's move\n", currPlayer.getName());
-        game.makeMoveForCurrPlayer();
+        makeMoveForCurrPlayer();
 
         // Step4 - check for winning strategies
-        game.postMoveWinnerCheck();
+        postMoveWinnerCheck();
+    }
+
+    public void undoLastMove() {
+        // 1. Remove from moves list
+        Cell moveCell = game.moves.get(game.moves.size() - 1);
+        game.moves.remove(moveCell);
+
+        // 2. Updating the board without that cell
+        Cell cell = game.getBoard().getCells().get(moveCell.getRow()).get(moveCell.getCol());
+        cell.setPlayer(null);
+        cell.setCellState(CellState.FREE);
+
+        // 3. Update the curr player.
+        game.currPlayerIndex = (game.currPlayerIndex - 1 + game.playerList.size()) % game.playerList.size();
+
+    }
+
+    private void makeMoveForCurrPlayer() {
+        Player currPlayer = this.game.playerList.get(game.currPlayerIndex);
+        Cell cell = currPlayer.makeMove(game.board, currPlayer);
+        try {
+            this.boardController.updateBoard(cell, currPlayer);
+            this.game.moves.add(cell);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Please choose a valid cell.");
+            makeMoveForCurrPlayer();
+        }
+    }
+
+    private void postMoveWinnerCheck() {
+        boolean isWin = game.getWinningStrategies().stream()
+                .anyMatch(winningStrategy -> winningStrategy.isWinning(game));
+
+        if (isWin) {
+            game.setWinner();
+        } else {
+            game.currPlayerIndex += 1;
+            game.currPlayerIndex %= game.playerList.size();
+        }
     }
 
 }

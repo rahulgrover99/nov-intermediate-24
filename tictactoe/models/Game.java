@@ -43,31 +43,4 @@ public class Game {
         gameState = GameState.DRAW;
     }
 
-    /**
-     * This method makes the next player decide a move and updates the board.
-     */
-    public void makeMoveForCurrPlayer() {
-        Player currPlayer = this.playerList.get(currPlayerIndex);
-        Cell cell = currPlayer.makeMove(board, currPlayer);
-        try {
-            this.getBoard().updateBoard(cell, currPlayer);
-            this.moves.add(cell);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Please choose a valid cell.");
-            makeMoveForCurrPlayer();
-        }
-    }
-
-    public void postMoveWinnerCheck() {
-        boolean isWin = this.getWinningStrategies().stream()
-                .anyMatch(winningStrategy -> winningStrategy.isWinning(this));
-
-        if (isWin) {
-            this.setWinner();
-        } else {
-            this.currPlayerIndex += 1;
-            this.currPlayerIndex %= this.playerList.size();
-        }
-    }
-
 }
