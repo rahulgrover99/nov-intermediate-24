@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class UserTicket {
-    int ticketId;
+    Long ticketId;
     int slotId;
     int floorNumber;
     LocalDate time;

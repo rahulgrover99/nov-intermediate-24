@@ -2,9 +2,9 @@ package com.example.parkinglot.service;
 
 import com.example.parkinglot.models.*;
 import com.example.parkinglot.repository.GateRepository;
+import com.example.parkinglot.repository.TicketRepository;
 import com.example.parkinglot.strategy.BasicSlotFindingStrategy;
 import com.example.parkinglot.strategy.SlotFindingStrategy;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,12 +16,13 @@ public class TicketService {
 
     private final GateRepository gateRepository;
     private final SlotFindingStrategy slotFindingStrategy;
+    private final TicketRepository ticketRepository;
 
-    public TicketService(GateRepository gateRepository) {
+    public TicketService(GateRepository gateRepository, TicketRepository ticketRepository) {
         this.gateRepository = gateRepository;
         this.slotFindingStrategy = new BasicSlotFindingStrategy();
+        this.ticketRepository = ticketRepository;
     }
-
 
     public Ticket createTicket(Vehicle vehicle, Long gateId) {
         // 1. Fetch the gate, and parking lot object from gate ID
@@ -44,7 +45,7 @@ public class TicketService {
         parkingSlot.setSlotState(SlotState.OCCUPIED);
         parkingSlot.setVehicle(vehicle);
 
-        return Ticket
+        Ticket ticket = Ticket
                 .builder()
                 .id(new Random().nextInt())
                 .operatorId(gate.getOperatorId())
@@ -53,5 +54,7 @@ public class TicketService {
                 .parkingSlot(parkingSlot)
                 .vehicle(vehicle)
                 .build();
+        ticketRepository.save(ticket);
+        return ticket;
     }
 }
