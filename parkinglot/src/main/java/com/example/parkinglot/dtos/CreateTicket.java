@@ -8,6 +8,6 @@ import lombok.Data;
 public class CreateTicket {
     String vehicleRegNo;
     VehicleType vehicleType;
-    int gateId;
+    Long gateId;
     SlotType slotType;
 }
