@@ -19,12 +19,14 @@ public class BookingService {
         this.showSeatRepository = showSeatRepository;
     }
 
-    public Booking bookTicket(List<ShowSeat> showSeatList) {
-        List<ShowSeat> showSeats = showSeatRepository.findAllById(List.of(1L, 2L));
+    public Booking bookTicket(List<Long> showSeatList) {
+        List<ShowSeat> showSeats = showSeatRepository.findAllById(showSeatList);
 
         if (showSeats.size() == 0) {
             System.out.println("Invalid show seats");
         }
+
+        System.out.println(showSeats.get(0));
 
         return null;
     }

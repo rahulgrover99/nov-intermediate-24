@@ -22,6 +22,6 @@ public class BookingController {
     public Booking createBooking(@RequestBody CreateBooking createBooking) {
 
 
-        return bookingService.bookTicket(null);
+        return bookingService.bookTicket(createBooking.getSeatIds());
     }
 }
