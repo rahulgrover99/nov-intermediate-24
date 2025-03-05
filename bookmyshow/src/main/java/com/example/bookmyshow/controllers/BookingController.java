@@ -3,10 +3,7 @@ package com.example.bookmyshow.controllers;
 import com.example.bookmyshow.dtos.CreateBooking;
 import com.example.bookmyshow.models.Booking;
 import com.example.bookmyshow.service.BookingService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/booking")
@@ -20,8 +17,6 @@ public class BookingController {
 
     @PostMapping()
     public Booking createBooking(@RequestBody CreateBooking createBooking) {
-
-
         return bookingService.bookTicket(createBooking.getSeatIds());
     }
 }

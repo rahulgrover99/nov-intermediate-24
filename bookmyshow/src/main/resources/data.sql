@@ -17,4 +17,4 @@ INSERT INTO movie_show (movie_id, hall_id, start_time) VALUES
                                                                        (1, 2, '2020-08-11 12:00:00');
 
 INSERT INTO show_seat (price, show_seat_status, seat_id, show_id) VALUES
-                                                                      (100, 1, 1, 1), (120, 1, 2, 1), (140, 1, 3, 1);
+                                                                      (100, 2, 1, 1), (120, 2, 2, 1), (140, 2, 3, 1);
