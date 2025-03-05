@@ -34,12 +34,13 @@ public class BookingService {
      */
 
 
-
-
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public Booking bookTicket(List<Long> showSeatList) {
+        // SELECT * FROM show_seats where id IN [];
         List<ShowSeat> showSeats = showSeatRepository.findAllById(showSeatList);
 
+
+        // Testing only.
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
